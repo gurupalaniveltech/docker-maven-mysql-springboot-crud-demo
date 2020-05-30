@@ -1,0 +1,26 @@
+version: '3.8'
+
+volumes:
+  my_vol_data:
+  
+services:
+  mysql-standalone1:
+    image: mysql:5.6
+    ports:
+     - 3306:3306    
+    environment:
+     - MYSQL_ROOT_PASSWORD=root 
+     - MYSQL_DATABASE=springbootdb 
+    volumes:
+      - my_vol_data:/var/lib/mysql 
+  springboot-docker-container:
+   image: springboot-docker-container
+   restart: on-failure
+   ports:
+     - 8080:8080
+   build:
+     context: ./
+     dockerfile: Dockerfile
+   depends_on:
+     - mysql-standalone1       
+ 

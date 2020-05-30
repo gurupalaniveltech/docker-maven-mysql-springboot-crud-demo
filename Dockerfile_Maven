@@ -1,0 +1,5 @@
+FROM maven:3.6.3-openjdk-8
+copy . .
+RUN mvn clean install -Dmaven.test.skip=true
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "target/spring-boot-web.jar"]
